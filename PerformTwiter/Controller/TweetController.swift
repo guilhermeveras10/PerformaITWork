@@ -17,7 +17,7 @@ class TweetController: UICollectionViewController {
     
     private let tweet: Tweet
     
-    private let actionSheet: ActionSheet
+    private var actionSheet: ActionSheet!
     
     private var tweets = [Tweet]() {
         didSet {collectionView.reloadData()}
@@ -27,7 +27,6 @@ class TweetController: UICollectionViewController {
     
     init(tweet: Tweet) {
         self.tweet = tweet
-        self.actionSheet = ActionSheet(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -57,6 +56,13 @@ class TweetController: UICollectionViewController {
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(TweetHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
     }
+    
+    fileprivate func showActionSheet(user: User) {
+        actionSheet = ActionSheet(user: user)
+        actionSheet.delegate = self
+        actionSheet.show()
+    }
+    
 }
 
 //MARK: - CollectionViewDatasource
@@ -100,6 +106,37 @@ extension TweetController {
 
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        actionSheet.show()
+        if tweet.user.isCurrentUser {
+            showActionSheet(user: tweet.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { isFollowed in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(user: user)
+            }
+        }
     }
+}
+
+//MARK: - ActionSheetDelegate
+
+extension TweetController: ActionSheetDelegate {
+    func didSelect(option: ActionCheetOption) {
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { (error, ref) in
+                print(user.username)
+            }
+        case .unfolow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { (error, ref) in
+                print(user.username)
+            }
+        case .report:
+            print("reportar")
+        case .delete:
+            print("deletar")
+        }
+    }
+    
+    
 }

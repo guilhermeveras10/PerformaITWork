@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		384B7E4881B192F2F73FC8E7 /* Pods_PerformTwiter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93E3B14AA15961F2506BE23 /* Pods_PerformTwiter.framework */; };
+		F0055475246079FD000B7A1C /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */; };
 		F016E33A245259BC0063A3CA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E339245259BC0063A3CA /* LoginController.swift */; };
 		F04DF7002457283100C9807C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F04DF6FF2457283100C9807C /* GoogleService-Info.plist */; };
 		F04FBC89245A02A000AE69FE /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FBC88245A02A000AE69FE /* UserCell.swift */; };
@@ -20,6 +21,7 @@
 		F056459A2458FC02008CD63F /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05645992458FC02008CD63F /* ProfileFilterView.swift */; };
 		F056459C2459001B008CD63F /* ProfileFielterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F056459B2459001B008CD63F /* ProfileFielterCell.swift */; };
 		F056459E24590B5D008CD63F /* ProfileFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = F056459D24590B5D008CD63F /* ProfileFilterOption.swift */; };
+		F059EBA6246063180080FCA7 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F059EBA5246063180080FCA7 /* ActionSheetCell.swift */; };
 		F05D223524573FAB00200F77 /* Constaints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D223424573FAB00200F77 /* Constaints.swift */; };
 		F05D2237245745C200200F77 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D2236245745C100200F77 /* AuthService.swift */; };
 		F05D223924576D9D00200F77 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D223824576D9D00200F77 /* UserService.swift */; };
@@ -49,6 +51,7 @@
 /* Begin PBXFileReference section */
 		2A152776D022E3A0B8252BDE /* Pods-PerformTwiter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformTwiter.release.xcconfig"; path = "Target Support Files/Pods-PerformTwiter/Pods-PerformTwiter.release.xcconfig"; sourceTree = "<group>"; };
 		9FF9F35DE7392F70AEF58982 /* Pods-PerformTwiter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformTwiter.debug.xcconfig"; path = "Target Support Files/Pods-PerformTwiter/Pods-PerformTwiter.debug.xcconfig"; sourceTree = "<group>"; };
+		F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 		F016E339245259BC0063A3CA /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F04DF6FF2457283100C9807C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F04FBC88245A02A000AE69FE /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		F05645992458FC02008CD63F /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		F056459B2459001B008CD63F /* ProfileFielterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFielterCell.swift; sourceTree = "<group>"; };
 		F056459D24590B5D008CD63F /* ProfileFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterOption.swift; sourceTree = "<group>"; };
+		F059EBA5246063180080FCA7 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
 		F05D223424573FAB00200F77 /* Constaints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constaints.swift; sourceTree = "<group>"; };
 		F05D2236245745C100200F77 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F05D223824576D9D00200F77 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				F0564593245894A8008CD63F /* TweetViewModel.swift */,
 				F056459D24590B5D008CD63F /* ProfileFilterOption.swift */,
 				F09674BF245CDA0C00D99341 /* UploadTweetViewModel.swift */,
+				F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				F056459B2459001B008CD63F /* ProfileFielterCell.swift */,
 				F04FBC88245A02A000AE69FE /* UserCell.swift */,
 				F04FBC8C245A431100AE69FE /* TweetHeader.swift */,
+				F059EBA5246063180080FCA7 /* ActionSheetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				F0B5C08224522D1100C9FE66 /*  Extensions.swift in Sources */,
 				F0B5C05C2452117B00C9FE66 /* AppDelegate.swift in Sources */,
 				F0B5C07E2452172D00C9FE66 /* ConversationsController.swift in Sources */,
+				F059EBA6246063180080FCA7 /* ActionSheetCell.swift in Sources */,
 				F05D223B2457759B00200F77 /* User.swift in Sources */,
 				F0B5C0782452162100C9FE66 /* FeedController.swift in Sources */,
 				F05D223F24578F8000200F77 /* CaptionTextView.swift in Sources */,
@@ -384,6 +391,7 @@
 				F016E33A245259BC0063A3CA /* LoginController.swift in Sources */,
 				F09674C0245CDA0C00D99341 /* UploadTweetViewModel.swift in Sources */,
 				F05D223524573FAB00200F77 /* Constaints.swift in Sources */,
+				F0055475246079FD000B7A1C /* ActionSheetViewModel.swift in Sources */,
 				F05D2237245745C200200F77 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
