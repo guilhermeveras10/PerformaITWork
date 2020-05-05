@@ -11,6 +11,10 @@
 		F0055475246079FD000B7A1C /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */; };
 		F016E33A245259BC0063A3CA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E339245259BC0063A3CA /* LoginController.swift */; };
 		F04DF7002457283100C9807C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F04DF6FF2457283100C9807C /* GoogleService-Info.plist */; };
+		F04F6DB72460B63A00BD578F /* Notificacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F6DB62460B63A00BD578F /* Notificacion.swift */; };
+		F04F6DB92460BB4000BD578F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F6DB82460BB4000BD578F /* NotificationService.swift */; };
+		F04F6DBB2460C70900BD578F /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F6DBA2460C70900BD578F /* NotificationCell.swift */; };
+		F04F6DBD2460DBEA00BD578F /* NotificacionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F6DBC2460DBEA00BD578F /* NotificacionViewModel.swift */; };
 		F04FBC89245A02A000AE69FE /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FBC88245A02A000AE69FE /* UserCell.swift */; };
 		F04FBC8B245A3F8400AE69FE /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FBC8A245A3F8400AE69FE /* TweetController.swift */; };
 		F04FBC8D245A431100AE69FE /* TweetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FBC8C245A431100AE69FE /* TweetHeader.swift */; };
@@ -54,6 +58,10 @@
 		F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 		F016E339245259BC0063A3CA /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F04DF6FF2457283100C9807C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F04F6DB62460B63A00BD578F /* Notificacion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notificacion.swift; sourceTree = "<group>"; };
+		F04F6DB82460BB4000BD578F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		F04F6DBA2460C70900BD578F /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		F04F6DBC2460DBEA00BD578F /* NotificacionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificacionViewModel.swift; sourceTree = "<group>"; };
 		F04FBC88245A02A000AE69FE /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		F04FBC8A245A3F8400AE69FE /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
 		F04FBC8C245A431100AE69FE /* TweetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeader.swift; sourceTree = "<group>"; };
@@ -177,6 +185,7 @@
 				F05D2236245745C100200F77 /* AuthService.swift */,
 				F05D223824576D9D00200F77 /* UserService.swift */,
 				F05D2240245795A200200F77 /* TweetsSeervice.swift */,
+				F04F6DB82460BB4000BD578F /* NotificationService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -202,6 +211,7 @@
 			children = (
 				F05D223A2457759B00200F77 /* User.swift */,
 				F05D224224579B4D00200F77 /* Tweet.swift */,
+				F04F6DB62460B63A00BD578F /* Notificacion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +223,7 @@
 				F056459D24590B5D008CD63F /* ProfileFilterOption.swift */,
 				F09674BF245CDA0C00D99341 /* UploadTweetViewModel.swift */,
 				F0055474246079FD000B7A1C /* ActionSheetViewModel.swift */,
+				F04F6DBC2460DBEA00BD578F /* NotificacionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -228,6 +239,7 @@
 				F04FBC88245A02A000AE69FE /* UserCell.swift */,
 				F04FBC8C245A431100AE69FE /* TweetHeader.swift */,
 				F059EBA5246063180080FCA7 /* ActionSheetCell.swift */,
+				F04F6DBA2460C70900BD578F /* NotificationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,18 +375,21 @@
 				F056459C2459001B008CD63F /* ProfileFielterCell.swift in Sources */,
 				F05D2241245795A200200F77 /* TweetsSeervice.swift in Sources */,
 				F0CD1CA4245F28430072D987 /* ActionSheet.swift in Sources */,
+				F04F6DB92460BB4000BD578F /* NotificationService.swift in Sources */,
 				F0B5C08224522D1100C9FE66 /*  Extensions.swift in Sources */,
 				F0B5C05C2452117B00C9FE66 /* AppDelegate.swift in Sources */,
 				F0B5C07E2452172D00C9FE66 /* ConversationsController.swift in Sources */,
 				F059EBA6246063180080FCA7 /* ActionSheetCell.swift in Sources */,
 				F05D223B2457759B00200F77 /* User.swift in Sources */,
 				F0B5C0782452162100C9FE66 /* FeedController.swift in Sources */,
+				F04F6DB72460B63A00BD578F /* Notificacion.swift in Sources */,
 				F05D223F24578F8000200F77 /* CaptionTextView.swift in Sources */,
 				F056459A2458FC02008CD63F /* ProfileFilterView.swift in Sources */,
 				F05645982458E78F008CD63F /* ProfileHeader.swift in Sources */,
 				F0B5C0762452132000C9FE66 /* MainTabBarController.swift in Sources */,
 				F04FBC8D245A431100AE69FE /* TweetHeader.swift in Sources */,
 				F06E7DC124566ABB0084E9CC /* Utilities.swift in Sources */,
+				F04F6DBD2460DBEA00BD578F /* NotificacionViewModel.swift in Sources */,
 				F07104AC2453886B0077935C /* RegistrationController.swift in Sources */,
 				F05D224324579B4D00200F77 /* Tweet.swift in Sources */,
 				F0564594245894A8008CD63F /* TweetViewModel.swift in Sources */,
@@ -391,6 +406,7 @@
 				F016E33A245259BC0063A3CA /* LoginController.swift in Sources */,
 				F09674C0245CDA0C00D99341 /* UploadTweetViewModel.swift in Sources */,
 				F05D223524573FAB00200F77 /* Constaints.swift in Sources */,
+				F04F6DBB2460C70900BD578F /* NotificationCell.swift in Sources */,
 				F0055475246079FD000B7A1C /* ActionSheetViewModel.swift in Sources */,
 				F05D2237245745C200200F77 /* AuthService.swift in Sources */,
 			);
