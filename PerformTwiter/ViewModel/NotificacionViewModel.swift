@@ -30,10 +30,10 @@ struct NotificacionViewModel {
     var notificationMessage: String {
         switch type {
         case .follow: return " Comecou a seguir voce"
-        case .like: return " Curtiu seu tweet"
-        case .reply: return " Compartilhou seu tweet"
-        case .retweet: return " Compartilhou seu tweet"
-        case .mention: return " Fez mencao ao seu tweet"
+        case .like: return " Curtiu sua ideia"
+        case .reply: return " Compartilhou sua ideia"
+        case .retweet: return " Compartilhou sua ideia"
+        case .mention: return " Fez mencao ao sua ideia"
         }
     }
     
