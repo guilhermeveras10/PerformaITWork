@@ -22,7 +22,7 @@ class FeedController: UICollectionViewController {
     var user: User? {
         didSet { configurateNav() }
     }
-
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -41,17 +41,21 @@ class FeedController: UICollectionViewController {
     //MARK: - API
     
     func fetch() {
+        collectionView.refreshControl?.beginRefreshing()
         TweetsSeervice.shared.fetchTweets { tweets in
-            self.tweets = tweets
-            self.checheLike(tweets)
+            self.tweets = tweets.sorted(by: {$0.timestamp > $1.timestamp})
+            self.checheLike()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
-    func checheLike(_ tweets: [Tweet]) {
-        for (index, tweet) in tweets.enumerated() {
+    func checheLike() {
+        self.tweets.forEach { tweet in
             TweetsSeervice.shared.checkUserLike(tweet) { didLike in
                 guard didLike == true else {return}
-                self.tweets[index].didLike = true
+                if let index = self.tweets.firstIndex(where: {$0.tweetID == tweet.tweetID}) {
+                    self.tweets[index].didLike = true
+                }
             }
         }
     }
@@ -68,6 +72,9 @@ class FeedController: UICollectionViewController {
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     func configurateNav() {
@@ -82,6 +89,12 @@ class FeedController: UICollectionViewController {
         profileImage.sd_setImage(with: user.profileImageUrl, completed: nil)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImage)
+    }
+    
+    //MARK: - Selectors
+    
+    @objc func refresh() {
+        fetch()
     }
 }
 //MARK: - CollectionView Datasource

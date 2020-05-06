@@ -25,6 +25,15 @@ struct TweetViewModel {
         return user.profileImageUrl
     }
     
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyText: String? {
+        guard let replyTo = tweet.replyingTo else { return nil }
+        return "Compartilhado de @\(replyTo)"
+    }
+    
     var usernameText: String {
         return "@\(user.username)"
     }

@@ -140,6 +140,14 @@ class TweetHeader: UICollectionReusableView {
         return btn
     }()
     
+    private let replyLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .lightGray
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.text = "Compartilha do @andre"
+        return lbl
+    }()
+    
     //MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -149,8 +157,13 @@ class TweetHeader: UICollectionReusableView {
         stackLabel.axis = .vertical
         stackLabel.spacing = -6
         
-        let stack = UIStackView(arrangedSubviews: [profileImageView, stackLabel])
-        stack.spacing = 12
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, stackLabel])
+        imageCaptionStack.spacing = 12
+        
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
         
         addSubview(stack)
         stack.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 16)
@@ -228,5 +241,8 @@ class TweetHeader: UICollectionReusableView {
         likeLabel.attributedText = viewModel.likesAtribbutedText
         likeBtn.setImage(viewModel.likeBtnImage, for: .normal)
         likeBtn.tintColor = viewModel.likeBtnTint
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
 }

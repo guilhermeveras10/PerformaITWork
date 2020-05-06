@@ -11,7 +11,7 @@ import UIKit
 private let reuseIdentifier = "FilterCell"
 
 protocol ProfileFilterViewDelegate: class {
-    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath)
+    func filterView(_ view: ProfileFilterView, didSelect index: Int)
 }
 
 class ProfileFilterView: UIView {
@@ -21,12 +21,19 @@ class ProfileFilterView: UIView {
     weak var delegate: ProfileFilterViewDelegate?
     
     lazy var collectionView: UICollectionView = {
-       let layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .white
         cv.delegate = self
         cv.dataSource = self
         return cv
+    }()
+    
+    
+    private let underlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
     }()
     
     //MARK: - Lifecycle
@@ -40,6 +47,11 @@ class ProfileFilterView: UIView {
         collectionView.addConstraintsToFillView(self)
     }
     
+    override func layoutSubviews() {
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, width: frame.width / 3, height: 2)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,7 +63,7 @@ extension ProfileFilterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ProfileFilterOption.allCases.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFielterCell
         let option = ProfileFilterOption(rawValue: indexPath.row)
@@ -64,7 +76,13 @@ extension ProfileFilterView: UICollectionViewDataSource {
 
 extension ProfileFilterView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.filterView(self, didSelect: indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
+        let xPosition = cell?.frame.origin.x ?? 0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.underlineView.frame.origin.x = xPosition
+        }
+        delegate?.filterView(self, didSelect: indexPath.row)
     }
 }
 

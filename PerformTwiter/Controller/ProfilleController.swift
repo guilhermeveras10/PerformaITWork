@@ -15,8 +15,20 @@ class ProfilleController: UICollectionViewController {
     
     //MARK: - Propeties
     
-    private var tweets = [Tweet]() {
-        didSet{ collectionView.reloadData() }
+    private var selectedFilter: ProfileFilterOption = .tweets {
+        didSet {collectionView.reloadData()}
+    }
+    
+    private var tweets = [Tweet]()
+    private var likedTweets = [Tweet]()
+    private var replies = [Tweet]()
+    
+    private var currentDataSource: [Tweet] {
+        switch selectedFilter {
+        case .tweets: return tweets
+        case .replies: return replies
+        case.likes: return likedTweets
+        }
     }
     
     private var user: User
@@ -36,6 +48,8 @@ class ProfilleController: UICollectionViewController {
         super.viewDidLoad()
         fetchUserStats()
         fetch()
+        fetchLikes()
+        fetchReplies()
         checkFollowing()
         configureCollectionView()
     }
@@ -50,6 +64,19 @@ class ProfilleController: UICollectionViewController {
     func fetch() {
         TweetsSeervice.shared.fetchUserTweets(user: user) { tweets in
             self.tweets = tweets
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchLikes() {
+        TweetsSeervice.shared.fetchLikes(user: user) { tweets in
+            self.likedTweets = tweets
+        }
+    }
+    
+    func fetchReplies() {
+        TweetsSeervice.shared.fetchUserReplies(user: user) { tweets in
+            self.replies = tweets
         }
     }
     
@@ -76,6 +103,9 @@ class ProfilleController: UICollectionViewController {
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifierHeader)
+        
+        guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
+        collectionView.contentInset.bottom = tabHeight
     }
     
 }
@@ -84,12 +114,16 @@ class ProfilleController: UICollectionViewController {
 
 extension ProfilleController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        return currentDataSource.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
+        cell.tweet = currentDataSource[indexPath.row]
         return cell
+    }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(tweet: currentDataSource[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -111,13 +145,23 @@ extension ProfilleController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 350)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        let tweet = currentDataSource[indexPath.row]
+        let viewModel = TweetViewModel(tweet: tweet)
+        var height = viewModel.size(width: view.frame.width).height + 72
+        if currentDataSource[indexPath.row].isReply {
+            height += 20
+        }
+        return CGSize(width: view.frame.width, height: height)
     }
 }
 
 //MARK: - ProfileHeaderDelegate
 
 extension ProfilleController: ProfileHeaderDelegate {
+    func didSelect(filter: ProfileFilterOption) {
+        self.selectedFilter = filter
+    }
+    
     func handlProfile(_ header: ProfileHeader) {
         
         if user.isCurrentUser {

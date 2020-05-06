@@ -39,6 +39,14 @@ class TweetCell: UICollectionViewCell {
         return iv
     }()
     
+    private let replyLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .lightGray
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.text = "Compartilha do @andre"
+        return lbl
+    }()
+    
     private let captionLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 16)
@@ -79,17 +87,25 @@ class TweetCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = .white
+                
+        let stackText = UIStackView(arrangedSubviews: [infoLabel,captionLabel])
+        stackText.axis = .vertical
+        stackText.spacing = 4
+        stackText.distribution = .fillProportionally
         
-        addSubview(profileImageView)
-        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 12, paddingLeft: 8)
+        let imageStack = UIStackView(arrangedSubviews: [profileImageView,stackText])
+        imageStack.spacing = 12
+        imageStack.alignment = .leading
+        imageStack.distribution = .fillProportionally
         
-        let stack = UIStackView(arrangedSubviews: [infoLabel,captionLabel])
+        let stack = UIStackView(arrangedSubviews: [replyLabel,imageStack])
         stack.axis = .vertical
-        stack.spacing = 4
+        stack.spacing = 8
         stack.distribution = .fillProportionally
         
+        
         addSubview(stack)
-        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 12, paddingRight: 12)
+        stack.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingRight: 12)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
         infoLabel.text = "gui"
@@ -148,5 +164,8 @@ class TweetCell: UICollectionViewCell {
         infoLabel.attributedText = viewModel.userInfoText
         likeBtn.tintColor = viewModel.likeBtnTint
         likeBtn.setImage(viewModel.likeBtnImage, for: .normal)
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
     }
 }

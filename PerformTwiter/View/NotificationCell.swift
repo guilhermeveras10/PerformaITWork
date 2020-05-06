@@ -8,12 +8,19 @@
 
 import UIKit
 
+protocol NotificationCellDelegate: class {
+    func selectProfileImage(_ cell: NotificationCell)
+    func didFollowTap(_ cell: NotificationCell)
+}
+
 class NotificationCell: UITableViewCell {
     //MARK: - Propeties
     
     var notification: Notificacion? {
         didSet{config()}
     }
+    
+    weak var delegate: NotificationCellDelegate?
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -38,6 +45,17 @@ class NotificationCell: UITableViewCell {
         return lbl
     }()
     
+    private lazy var followBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Carregando", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = .white
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.borderWidth = 2
+        btn.addTarget(self, action: #selector(handleFollow), for: .touchUpInside)
+        return btn
+    }()
+    
     //MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -49,6 +67,12 @@ class NotificationCell: UITableViewCell {
         addSubview(stack)
         stack.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         stack.anchor(right: rightAnchor, paddingRight: 12)
+        
+        addSubview(followBtn)
+        followBtn.centerY(inView: self)
+        followBtn.setDimensions(width: 92, height: 32)
+        followBtn.layer.cornerRadius = 32 / 2
+        followBtn.anchor(right: rightAnchor, paddingRight: 12)
     }
     
     required init?(coder: NSCoder) {
@@ -58,7 +82,11 @@ class NotificationCell: UITableViewCell {
     //MARK: - Selectors
     
     @objc func handleProfileTapped() {
-        
+        delegate?.selectProfileImage(self)
+    }
+    
+    @objc func handleFollow() {
+        delegate?.didFollowTap(self)
     }
     
     //MARK: - Helpers
@@ -68,5 +96,7 @@ class NotificationCell: UITableViewCell {
         let viewModel = NotificacionViewModel(notification: notification)
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         notificationLabel.attributedText = viewModel.notificationText
+        followBtn.isHidden = viewModel.shouldHideFollowBtn
+        followBtn.setTitle(viewModel.followBtnText, for: .normal)
     }
 }

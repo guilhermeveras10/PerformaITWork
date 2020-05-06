@@ -46,6 +46,14 @@ struct NotificacionViewModel {
         return atribbutedTitle
     }
     
+    var shouldHideFollowBtn: Bool {
+        return type != .follow
+    }
+    
+    var followBtnText: String {
+        return user.isFollowed ? "Seguindo" : "Seguir"
+    }
+    
     init(notification: Notificacion) {
         self.notification = notification
         self.type = notification.type
