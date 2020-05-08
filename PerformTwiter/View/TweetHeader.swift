@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol TweetHeaderDelegate: class {
     func showActionSheet()
@@ -53,11 +54,13 @@ class TweetHeader: UICollectionReusableView {
          return lbl
      }()
     
-    private let captionLabel: UILabel = {
-        let lbl = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let lbl = ActiveLabel()
         lbl.font = UIFont.systemFont(ofSize: 20)
         lbl.numberOfLines = 0
         lbl.text = "algum text"
+        lbl.mentionColor = .blue
+        lbl.hashtagColor = .blue
         return lbl
     }()
     

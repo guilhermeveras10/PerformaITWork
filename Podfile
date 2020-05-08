@@ -12,4 +12,5 @@ pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
 pod 'SDWebImage', '~> 5.0'
+pod 'ActiveLabel'
 end

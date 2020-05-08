@@ -23,6 +23,9 @@ class EditProfileController: UITableViewController {
     private let imagePicker = UIImagePickerController()
     
     private var userInfoChanged = false
+    private var imageChanged: Bool {
+        return selectImage != nil
+    }
     weak var delegate: EditProfileControllerDelegate?
     
     private var selectImage: UIImage? {
@@ -50,7 +53,28 @@ class EditProfileController: UITableViewController {
     //MARK: - API
     
     func update() {
-        UserService.shared.saveUserData(user: user) { (error, ref) in
+        if imageChanged && !userInfoChanged {
+            updateProfileImage()
+        }
+        
+        if userInfoChanged && !imageChanged {
+            UserService.shared.saveUserData(user: user) { (error, ref) in
+                self.delegate?.controller(controller: self, user: self.user)
+            }
+        }
+        
+        if userInfoChanged && imageChanged {
+            UserService.shared.saveUserData(user: user) { (error, ref) in
+                self.updateProfileImage()
+            }
+        }
+        
+    }
+    
+    func updateProfileImage() {
+        guard let image = selectImage else { return }
+        UserService.shared.uploadProfileImage(image: image) { profileImageUrl in
+            self.user.profileImageUrl = profileImageUrl
             self.delegate?.controller(controller: self, user: self.user)
         }
     }
@@ -67,8 +91,6 @@ class EditProfileController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleDismiss))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-        
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func configurateTableView() {
@@ -91,6 +113,9 @@ class EditProfileController: UITableViewController {
     }
     
     @objc func handleDone() {
+        view.endEditing(true)
+        guard imageChanged || userInfoChanged else {return}
+        
         update()
     }
 }

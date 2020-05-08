@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
@@ -39,19 +40,22 @@ class TweetCell: UICollectionViewCell {
         return iv
     }()
     
-    private let replyLabel: UILabel = {
-        let lbl = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let lbl = ActiveLabel()
         lbl.textColor = .lightGray
         lbl.font = UIFont.systemFont(ofSize: 12)
-        lbl.text = "Compartilha do @andre"
+        lbl.mentionColor = .blue
+        lbl.hashtagColor = .blue
         return lbl
     }()
     
-    private let captionLabel: UILabel = {
-        let lbl = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let lbl = ActiveLabel()
         lbl.font = UIFont.systemFont(ofSize: 16)
         lbl.numberOfLines = 0
         lbl.text = "algum text"
+        lbl.mentionColor = .blue
+        lbl.hashtagColor = .blue
         return lbl
     }()
     
@@ -122,7 +126,7 @@ class TweetCell: UICollectionViewCell {
         addSubview(stackBtn)
         stackBtn.centerX(inView: self)
         stackBtn.anchor(bottom:  bottomAnchor, paddingBottom: 8)
-        
+        configureMentionTapped()
     }
     
     required init?(coder: NSCoder) {
@@ -167,5 +171,11 @@ class TweetCell: UICollectionViewCell {
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
+    }
+    
+    func configureMentionTapped() {
+        captionLabel.handleMentionTap { mention in
+            
+        }
     }
 }

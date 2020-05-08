@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ActiveLabel
 
 class UploadTwiiterController: UIViewController {
     
@@ -19,11 +19,11 @@ class UploadTwiiterController: UIViewController {
     
     private lazy var viewModel = UploadTweetViewModel(config: config)
     
-    private lazy var replyLabel: UILabel = {
-        let lbl = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let lbl = ActiveLabel()
         lbl.font = UIFont.systemFont(ofSize: 14)
         lbl.textColor = .lightGray
-        lbl.text = "comppartilhando fo andré"
+        lbl.mentionColor = .blue
         lbl.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         return lbl
     }()
@@ -68,6 +68,7 @@ class UploadTwiiterController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInterface()
+        handleMentionTap()
         
         switch config {
         case .tweet: print("edgf")
@@ -76,6 +77,12 @@ class UploadTwiiterController: UIViewController {
     }
     
     //MARK: - Helpers
+    
+    func handleMentionTap() {
+        replyLabel.handleMentionTap { mention in
+            
+        }
+    }
     
     func configureInterface() {
         view.backgroundColor = .white
