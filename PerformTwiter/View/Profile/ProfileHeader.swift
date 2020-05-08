@@ -81,14 +81,6 @@ class ProfileHeader: UICollectionReusableView {
          return lbl
      }()
     
-    private let bioLabel: UILabel = {
-         let lbl = UILabel()
-         lbl.font = UIFont.systemFont(ofSize: 16)
-         lbl.numberOfLines = 3
-         lbl.text = "algum text algum textalgum textalgum textalgum textalgum textalgum text"
-         return lbl
-     }()
-    
     private let followersLabel: UILabel = {
         let lbl = UILabel()
         
@@ -131,7 +123,7 @@ class ProfileHeader: UICollectionReusableView {
         editProfileFollowBtn.setDimensions(width: 100, height: 36)
         editProfileFollowBtn.layer.cornerRadius = 36 / 2
         
-        let stack = UIStackView(arrangedSubviews: [fullnameLabel,usernameLabel,bioLabel])
+        let stack = UIStackView(arrangedSubviews: [fullnameLabel,usernameLabel])
         stack.axis = .vertical
         stack.spacing = 4
         stack.distribution = .fillProportionally

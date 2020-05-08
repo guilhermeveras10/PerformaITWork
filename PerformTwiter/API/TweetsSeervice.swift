@@ -68,7 +68,7 @@ struct TweetsSeervice {
             REF_TWEETS_REPLIES.child(tweetID).child(replyKey).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String: Any] else { return }
                 guard let uid = dictionary["uid"] as? String else { return }
-                let replyID = snapshot.key
+//                let replyID = snapshot.key
                 
                 UserService.shared.fetchUser(uid: uid) { user in
                     let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
